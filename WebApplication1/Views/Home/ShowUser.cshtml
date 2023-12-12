@@ -1,14 +1,17 @@
-﻿
-@{
-             
-
-                ViewBag.Title = "ShowUser";
-                Layout = "~/Views/Shared/_Layout.cshtml";
-                var userList = (IEnumerable<user>)ViewData["UserList"];
+﻿@{
+    ViewBag.Title = "ShowUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userList = (IEnumerable<user>)ViewData["UserList"]; // Replace 'User' with your actual user model
 }
 
 <h2>Show User</h2>
 <table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Action</th>
+    </tr>
     @{
         foreach (var item in userList)
         {
@@ -16,11 +19,19 @@
                 <td style="padding: 20px;">@item.name</td>
                 <td style="padding: 20px;">@item.email</td>
                 <td style="padding: 20px;">@item.password</td>
-              
+                <td style="padding: 20px; display:flex; border:none;">
+                    <form action="UserUpdate" method="post">
+                        <input type="hidden" value="@item.user_id" name="id" />
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>              
+                    <form action="Delete" method="post">
+                        <input type="hidden" value="@item.user_id" name="id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+
+                   
+                </td>
             </tr>
         }
-
-
     }
 </table>
-

@@ -67,5 +67,52 @@ namespace WebApplication1.Controllers
             ViewData["UserList"] = userList;
             return View();
         }
+        [HttpPost]
+        public ActionResult UserUpdate(int id)
+        {
+
+            usersEntities user = new usersEntities();
+
+            var selectedUser = (from a in user.users where a.user_id == id select a).ToList();
+
+
+            ViewData["User"] = selectedUser;
+
+            return View();
+           
+        }
+
+
+        public ActionResult Update(FormCollection fc, int id)
+        {
+            usersEntities rdbe = new usersEntities();
+            user u = (from a in rdbe.users
+                      where a.user_id == id
+                      select a).FirstOrDefault();
+
+            String new_first_name = fc["new_name"];
+            String new_email = fc["new_email"];
+            String new_password = fc["new_password"];
+
+            u.name= new_first_name;
+            u.email = new_email;
+            u.password= new_password;
+
+            rdbe.SaveChanges();
+
+            return RedirectToAction("ShowUser");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            usersEntities rdbe = new usersEntities();
+            user u = (from a in rdbe.users
+                      where a.user_id == id
+                      select a).FirstOrDefault();
+            rdbe.users.Remove(u);
+            rdbe.SaveChanges();
+
+            return RedirectToAction("ShowUser");
+        }
     }
 }

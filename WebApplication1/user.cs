@@ -14,6 +14,8 @@ namespace WebApplication1
     
     public partial class user
     {
+        internal object[] Id;
+
         public int user_id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
