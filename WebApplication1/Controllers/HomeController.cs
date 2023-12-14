@@ -67,19 +67,14 @@ namespace WebApplication1.Controllers
             ViewData["UserList"] = userList;
             return View();
         }
-        [HttpPost]
-        public ActionResult UserUpdate(int id)
-        {
 
-            usersEntities user = new usersEntities();
-
-            var selectedUser = (from a in user.users where a.user_id == id select a).ToList();
-
-
-            ViewData["User"] = selectedUser;
-
+        public ActionResult UserUpdate(int id) {
+            usersEntities fe = new usersEntities();
+            var userList = (from a in fe.users
+                            where a.user_id == id
+                            select a).ToList();
+            ViewData["UserList"] = userList;
             return View();
-           
         }
 
 

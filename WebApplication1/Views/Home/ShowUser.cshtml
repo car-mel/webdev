@@ -3,35 +3,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var userList = (IEnumerable<user>)ViewData["UserList"]; // Replace 'User' with your actual user model
 }
-
-<h2>Show User</h2>
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Action</th>
-    </tr>
-    @{
-        foreach (var item in userList)
-        {
+<br /><br />
+<h2 style="background-color: #f1f1f1; height: 50px;text-align:center; padding-top: 8px;">List of Registered Users</h2>
+<div class="table-responsive" style="margin-top: 50px;">
+    <table class="table table-bordered table-striped">
+        <thead>
             <tr>
-                <td style="padding: 20px;">@item.name</td>
-                <td style="padding: 20px;">@item.email</td>
-                <td style="padding: 20px;">@item.password</td>
-                <td style="padding: 20px; display:flex; border:none;">
-                    <form action="UserUpdate" method="post">
-                        <input type="hidden" value="@item.user_id" name="id" />
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                    </form>              
-                    <form action="Delete" method="post">
-                        <input type="hidden" value="@item.user_id" name="id" />
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-
-                   
+                <th style="padding:20px;">Name</th>
+                <th style="padding:20px;">Email</th>
+                <th style="padding:20px;">Password</th>
+                <th style="padding:20px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in userList)
+            {
+            <tr>
+                <td style="padding:20px;">@item.name</td>
+                <td style="padding:20px;">@item.email</td>
+                <td style="padding:20px;">@item.password</td>
+                <td>
+                    <div class="btn-group" role="group" style= "display:flex; padding:20px;">
+                        <form action="UserUpdate" method="post">
+                            <input type="hidden" value="@item.user_id" name="id" />
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </form>
+                        <form action="Delete" method="post">
+                            <input type="hidden" value="@item.user_id" name="id" />
+                            <button type="submit" class="btn btn-danger" style="margin-left: 20px;">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
-        }
-    }
-</table>
+            }
+        </tbody>
+    </table>
+</div>
